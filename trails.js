@@ -59,9 +59,12 @@ $('a').on('click', function() {
 // ***** check on the knowl="" case, and probably rearrange these options
         else if (kid = this.getAttribute('knowl')) {
              full_kid = kid
+             trimmed_kid = full_kid.replace(/.*\//, "");
+             trimmed_kid = trimmed_kid.replace(/\..*/, "");
 // ****** add intormation about parents, because this might not be the
 // only instance of this knowl on that page
-             thefocus = full_kid
+             parent_pid = this.closest('p').id;
+             thefocus = parent_pid + "_" + trimmed_kid
         }
         else if (kid = this.getAttribute('refid')) {
 // ***** check.  want hk-proof-80 --> proof-80
