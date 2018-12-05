@@ -46,15 +46,22 @@ $('body').focusin(function() {
 
 // the hidden proof knowls have knowl="", which is like the a does not have knowl as an attribute
 $('a').on('click', function() {
+    console.log("clicked on an a", this);
     if(this.classList.contains('active')) {
       thefocus = this.closest('section').id;
-    } else if ($(this).attr("knowl")) {
+    } else if (this.hasAttribute("knowl")) {
         if($(this).attr("id")) {
              thefocus = this.id
         }
 // ***** maybe this case is obsolete?
         else if (kid = this.getAttribute('knowl-id')) {
              thefocus = kid
+        }
+        else if (kid = this.getAttribute('refid')) {
+// ***** check.  want hk-proof-80 --> proof-80
+// ***** also check that closing it goes back to the correct focus.
+// ***** (currenty, closing an know return focus to the enclosing section.  Is that always correct?)
+             thefocus = kid.slice(3)
         }
 // ***** check on the knowl="" case, and probably rearrange these options
         else if (kid = this.getAttribute('knowl')) {
@@ -68,12 +75,6 @@ $('a').on('click', function() {
              console.log("closest('p')", closest_p);
              parent_pid = closest_p.id;
              thefocus = parent_pid + "_" + trimmed_kid
-        }
-        else if (kid = this.getAttribute('refid')) {
-// ***** check.  want hk-proof-80 --> proof-80
-// ***** also check that closing it goes back to the correct focus.
-// ***** (currenty, closing an know return focus to the enclosing section.  Is that always correct?)
-             thefocus = kid.slice(3, 0)
         }
         else {
                   thefocus = 'Unknown'
