@@ -63,7 +63,10 @@ $('a').on('click', function() {
              trimmed_kid = trimmed_kid.replace(/\..*/, "");
 // ****** add intormation about parents, because this might not be the
 // only instance of this knowl on that page
-             parent_pid = this.closest('p').id;
+             closest_p = this.closest('[id]');
+             console.log("was clicked", this);
+             console.log("closest('p')", closest_p);
+             parent_pid = closest_p.id;
              thefocus = parent_pid + "_" + trimmed_kid
         }
         else if (kid = this.getAttribute('refid')) {
